@@ -1,0 +1,44 @@
+<% layout("/layouts/boilerplate.ejs") %>
+
+<div class="row mt-5">
+    <div class="col-10 offset-1 col-md-6 offset-md-3 col-lg-4 offset-lg-4">
+        <div class="login-card shadow-sm border p-4 rounded-4 bg-white">
+            <h2 class="text-center fw-bold mb-4">Welcome back 👋 <br> 
+Log in to your account  </h2>
+            
+            <form action="/login" method="post" class="needs-validation" novalidate>
+                <div class="mb-3">
+                    <label for="username" class="form-label fw-semibold text-secondary small">Username</label>
+                    <input type="text"
+                        name="username"
+                        id="username"
+                        class="form-control custom-input py-2"
+                        placeholder="Enter username"
+                        required
+                    >
+                    <div class="invalid-feedback">Please enter your username.</div>
+                </div>
+
+                <div class="mb-4">
+                    <label for="password" class="form-label fw-semibold text-secondary small">Password</label>
+                    <input type="password"
+                        name="password"
+                        id="password"
+                        class="form-control custom-input py-2"
+                        placeholder="••••••••"
+                        required
+                    >
+                    <div class="invalid-feedback">Please enter your password.</div>
+                </div>
+
+                <button class="btn btn-brand w-100 py-2 fw-bold text-white mb-3">Continue</button>
+                
+                <div class="text-center mt-3">
+                    <p class="small text-muted">Don’t have an account? 
+                        <a href="/signup" class="text-dark fw-bold text-decoration-none border-bottom border-dark">Sign up</a>
+                    </p>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
