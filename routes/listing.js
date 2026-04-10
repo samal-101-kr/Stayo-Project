@@ -41,9 +41,9 @@ router.get("/", async (req, res) => {
     res.render("listings/index.ejs", { listings, category });
 });
 
-router.get("/", (req,res) => {
-    res.render("listings/index.ejs");
-})
+router.get("/", (req, res) => {
+    res.render("listings/index");
+});
 
 // new route
 router.get("/new", isLoggedIn, (req,res) => {
