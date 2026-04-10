@@ -54,7 +54,7 @@ const store = MongoStore.create({
     touchAfter: 24*3600,
 });
 
-store.on("error", () => {
+store.on("error", (err) => {
     console.log("ERROR in   MONGO SESSION STORE", err);
 })
 const sessionOptions = {
@@ -103,8 +103,11 @@ app.use((req,res,next) => {
 // })
 app.use("/listings",listings);
 app.use("/listings/:id/reviews",reviews);
-app.use("/",users);
+app.use("/",listings);
 
+app.get("/", (req, res) => {
+    res.redirect("/listings");
+});
 
 app.use((err,req,res,next) => {
     let {status = 404,message = "something went wrong!"} = err;

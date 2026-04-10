@@ -38,12 +38,9 @@ router.get("/", async (req, res) => {
 
     console.log("DATA:", listings.length);
 
-    res.render("listings/index.ejs", { listings, category });
+    res.render("listings/index", { listings, category });
 });
 
-router.get("/", (req, res) => {
-    res.render("listings/index");
-});
 
 // new route
 router.get("/new", isLoggedIn, (req,res) => {
