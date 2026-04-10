@@ -101,9 +101,10 @@ app.use((req,res,next) => {
 //     let registeredUser = await User.register(fakeUser,"helloworld");
 //     console.log(registeredUser);
 // })
+app.use("/",users);
 app.use("/listings",listings);
 app.use("/listings/:id/reviews",reviews);
-app.use("/",listings);
+
 
 app.get("/", (req, res) => {
     res.redirect("/listings");
