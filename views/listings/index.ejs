@@ -1,4 +1,4 @@
-<% layout("/layouts/boilerplate") %> <%= success %>
+<% layout("/layouts/boilerplate") %>
 <body>
     <style>
         #filters{
@@ -42,11 +42,8 @@
 
 
 <div class="filters">
-
-  <a href="/listings" class="<%= category==='trending'?'active':'' %>">Trending</a>
-
+<a href="/listings" class="<%= (!category || category === '') ? 'active' : '' %>">Trending</a>
   <a href="/listings?category=rooms" class="<%= category==='rooms'?'active':'' %>">Rooms</a>
-
   <a href="/listings?category=iconic" class="<%= category==='iconic'?'active':'' %>">Iconic</a>
 
   <a href="/listings?category=mountain" class="<%= category==='mountain'?'active':'' %>">Mountain</a>
@@ -57,12 +54,12 @@
 
   <a href="/listings?category=camping" class="<%= category==='camping'?'active':'' %>">Camping</a>
 
-  <div class="tax-toggle">
-            <div class="form-check-reverse form-switch">
+<div class="tax-toggle">
+        <div class="form-check-reverse form-switch">
             <input class="form-check-input" type="checkbox" role="switch" id="switchCheckDefault">
-            <label class="form-check-label" for="switchCheckDefault">Display total after taxes</label>
-            </div>
+            <label class="form-check-label" for="switchCheckDefault">With Tax</label>
         </div>
+</div>
 </div>
 
         
@@ -144,4 +141,11 @@ taxSwitch.addEventListener("change", () => {
         el.style.display = taxSwitch.checked ? "inline" : "none";
     });
 });
+
+
+ setTimeout(() => {
+    const alerts = document.querySelectorAll(".alert");
+    alerts.forEach(alert => alert.remove());
+  }, 3000);
+
 </script>

@@ -79,3 +79,46 @@ module.exports.deleteListing = async (req,res) => {
     req.flash("success","Listing Deleted!");
     res.redirect("/listings");
 };
+
+
+
+module.exports.index = async (req, res) => {
+    let { category, search } = req.query;
+
+    let query = {};
+
+    // 🎯 If ONLY category
+    if (category && !search) {
+        query.category = category;
+    }
+
+    // 🔍 If ONLY search
+    else if (search && !category) {
+        let regex = new RegExp(search, "i");
+        query.$or = [
+            { title: regex },
+            { location: regex },
+            { country: regex },
+            { category: regex }
+        ];
+    }
+
+    // 🔥 If BOTH (advanced case)
+    else if (category && search) {
+        let regex = new RegExp(search, "i");
+
+        query = {
+            category: category,
+            $or: [
+                { title: regex },
+                { location: regex },
+                { country: regex }
+            ]
+        };
+    }
+
+    let listings = await Listing.find(query);
+
+    res.render("listings/index", { listings, category, search });
+};
+

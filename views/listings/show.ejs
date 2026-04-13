@@ -1,8 +1,6 @@
 <% layout("/layouts/boilerplate.ejs") %>
 <div class="row">
     <div class="col-lg-8 col-md-10 col-12 mx-auto">
-
-    
     <h3><%= listing.title %></h3>
 <p class="text-muted">
     Category: <%= listing.category %>
@@ -11,18 +9,17 @@
     🏔️ <%= listing.category %>
 </span> -->
     <div class="card">
-         <img src="<%= listing.image.url %>" class="card-img-top show-img img-fluid" alt="listing_image">
-  <div class="card-body">
+<img src="<%= listing.image.url %>" class="card-img-top show-img img-fluid" alt="listing_image">
+<div class="card-body">
     <p class="card-text"> Owned by :
         <i><%= listing.owner.username %></i> <br>
-       <p> <%= listing.description %> </p>
+    <p> <%= listing.description %> </p>
         <p> &#8377;<%= listing.price ? listing.price.toLocaleString("en-IN") : "N/A" %>  </p>
         <p> <%= listing.location %> </p>
-         <%= listing.country %>
+<%= listing.country %>
     </p>
-  </div>
+</div>
     </div>
-     
     <% if(currUser && listing.owner._id.equals(currUser._id)) { %>
     <div class="btns">
     <a href="/listings/<%= listing._id %>/edit" class="edit-btn ">Edit</a>
@@ -39,9 +36,9 @@
 <div class="col-lg-8 col-md-10 col-12 mx-auto mb-3">
     <h4>Leave a Review</h4>
     <p>Rating</p>
-    <% if(currUser) { %> 
+    <% if(currUser) { %>
     <form action="/listings/<%= listing.id %>/reviews" method="post" novalidate class="needs-validation">
-  <fieldset class="starability-slot">
+<fieldset class="starability-slot">
     <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="1" checked hidden />
     <input type="radio" id="rate1" name="review[rating]" value="1" />
     <label for="rate1" title="Terrible">1 star</label>
@@ -53,7 +50,7 @@
     <label for="rate4" title="Very good">4 stars</label>
     <input type="radio" id="rate5" name="review[rating]" value="5" />
     <label for="rate5" title="Amazing">5 stars</label>
-  </fieldset>
+</fieldset>
 </div>
 </div>
         <div class="mb-3 mt-3 col-lg-8 col-md-10 col-12 mx-auto">
@@ -69,22 +66,23 @@
     </form>
 <!-- <p><b>All Reviews</b></p> -->
 <div>
-    <div class="row col-8 offset-3"> &nbsp;
-        <p><b>All Reviews</b></p>
-    <% for(review of listing.reviews){ %>
-        <div class="card col-lg-5 col-md-6 col-12 mb-3" id="review-card">
-            <div class="card-body">
-                <h5 class="card-title">@<%= review.author.username %></h5>
-                <p class="starability-result" data-rating="<%=review.rating%>">
-                </p>
-                <p class="card-text"><%=review.comment%></p>
-                <form class="mb-3" method="post" action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE">
-                    <button class="btn btn-sm btn-dark">Delete</button>
-                </form>
-            </div>
-        </div>
+<div class="row col-8 offset-3"> &nbsp;
+    <p><b>All Reviews</b></p>
+    <% for(let review of listing.reviews){ %>
+    <div class="card col-lg-5 col-md-6 col-12 mb-3" id="review-card">
+        <div class="card-body">
+        <h5 class="card-title">@<%= review.author.username %></h5>
+        <p class="starability-result" data-rating="<%= review.rating %>"></p>
+        <p class="card-text"><%= review.comment %></p>
+        <% if (currUser && review.author._id.toString() === currUser._id.toString()) { %>
+            <form class="mb-3" method="post" action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE">
+            <button 
+            onclick="return confirm('Are you sure you want to delete this review?')"
+            class="btn btn-sm btn-dark">Delete</button>
+            </form>
         <% } %>
         </div>
-<div/>
+    </div>
+    <% } %>
 </div>
 </div>

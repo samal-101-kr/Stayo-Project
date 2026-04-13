@@ -94,6 +94,6 @@ router.put("/:id", isLoggedIn, isOwner, upload.single("listing[image]"), (listin
 // delete route
 router.delete("/:id", isLoggedIn,isOwner, (listingController.deleteListing));
 
-
+router.get("/", listingController.index);
 
 module.exports = router;
